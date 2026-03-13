@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://7b0n2e7eeo12"]
+
+[ext_resource type="Script" uid="uid://5clm1nbfya3q" path="res://travel_window.gd" id="1_dh450"]
+
+[node name="ItemList" type="ItemList" unique_id=2098361757]
+offset_top = 72.0
+offset_right = 88.0
+offset_bottom = 104.0
+wraparound_items = false
+script = ExtResource("1_dh450")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="item_activated" from="." to="." method="_on_item_activated"]
+[connection signal="item_clicked" from="." to="." method="_on_item_clicked"]

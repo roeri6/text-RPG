@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://odq7157r5v4f"]
+
+[ext_resource type="Texture2D" uid="uid://bpatk347kgp0j" path="res://Theme/9patchPanel.png" id="1_ldxc3"]
+
+[resource]
+texture = ExtResource("1_ldxc3")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0

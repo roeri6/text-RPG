@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dofkuc4b8cduy"]
+
+[ext_resource type="Script" uid="uid://bvy2783fk4rw0" path="res://log_window.gd" id="1_kdrux"]
+
+[node name="LogWindow" type="Panel" unique_id=1924762409]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.238
+offset_left = -80.0
+offset_bottom = -17.272
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kdrux")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=2005678462]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_active = false
+scroll_following = true

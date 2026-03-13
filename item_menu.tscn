@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ir555uq5anpa"]
+
+[ext_resource type="Script" uid="uid://qqv6p4288c8o" path="res://item_menu.gd" id="1_n2rwk"]
+
+[node name="ItemMenu" type="ItemList" unique_id=54313615]
+offset_left = 47.0
+offset_top = 96.0
+offset_right = 160.0
+offset_bottom = 144.0
+max_columns = 5
+same_column_width = true
+script = ExtResource("1_n2rwk")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

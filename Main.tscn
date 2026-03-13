@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://da01tgbydoann"]
+
+[ext_resource type="Script" uid="uid://brpjugr8riy2o" path="res://main.gd" id="1_glv2v"]
+[ext_resource type="Texture2D" uid="uid://c6pdxus0lcb57" path="res://Room/Backgrounds/cave.png" id="2_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://dofkuc4b8cduy" path="res://LogWindow.tscn" id="2_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://43e4cc2isx1s" path="res://Actor/creatures/sprite.png" id="3_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://cnho82bmb1p8l" path="res://StatBar.tscn" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://dmdvkwoy5y41" path="res://player_window.gd" id="3_fos0i"]
+
+[node name="Main" type="Node" unique_id=1993034442]
+script = ExtResource("1_glv2v")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1039316645]
+position = Vector2(80, 61)
+texture = ExtResource("2_3dxm6")
+
+[node name="Player" type="Sprite2D" parent="Background" unique_id=1086065702]
+position = Vector2(-3, 4)
+texture = ExtResource("3_3dxm6")
+
+[node name="LogWindow" parent="." unique_id=1932917533 instance=ExtResource("2_uu6xs")]
+anchor_left = 0.28100002
+anchor_bottom = 1.0
+offset_left = 3.039997
+offset_top = 96.0
+offset_bottom = 0.0
+
+[node name="BottomMenu" type="Panel" parent="." unique_id=14464868]
+offset_top = 96.0
+offset_right = 49.0
+offset_bottom = 144.0
+
+[node name="Label" type="Label" parent="BottomMenu" unique_id=1539195976]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Move" type="Button" parent="BottomMenu" unique_id=948981226]
+layout_mode = 1
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 45.0
+offset_bottom = 11.0
+text = "Move"
+alignment = 0
+
+[node name="Map" type="Button" parent="BottomMenu" unique_id=1536199326]
+layout_mode = 1
+offset_left = 133.0
+offset_top = -13.0
+offset_right = 160.0
+offset_bottom = 3.0
+text = "Map"
+
+[node name="Rest" type="Button" parent="BottomMenu" unique_id=231396043]
+layout_mode = 1
+offset_left = 4.0
+offset_top = 20.0
+offset_right = 45.0
+offset_bottom = 28.0
+text = "Rest"
+alignment = 0
+
+[node name="Item" type="Button" parent="BottomMenu" unique_id=1927451192]
+layout_mode = 1
+offset_left = 129.0
+offset_top = -25.0
+offset_right = 162.0
+offset_bottom = -9.0
+text = "Item"
+
+[node name="Stats" type="Button" parent="BottomMenu" unique_id=381213757]
+layout_mode = 1
+offset_left = 4.0
+offset_top = 38.0
+offset_right = 29.0
+offset_bottom = 46.0
+text = "Menu"
+
+[node name="Explore" type="Button" parent="BottomMenu" unique_id=224806448]
+layout_mode = 1
+offset_left = 4.0
+offset_top = 11.0
+offset_right = 46.0
+offset_bottom = 19.0
+text = "Explore"
+
+[node name="Extra" type="Button" parent="BottomMenu" unique_id=1077682445]
+visible = false
+layout_mode = 1
+offset_left = 4.0
+offset_top = 29.0
+offset_right = 33.0
+offset_bottom = 37.0
+text = "Extra"
+
+[node name="PlayerWindow" type="Panel" parent="." unique_id=382545390]
+offset_right = 160.0
+offset_bottom = 27.0
+script = ExtResource("3_fos0i")
+
+[node name="HP" parent="PlayerWindow" unique_id=1623542089 instance=ExtResource("3_cm0pq")]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 113.0
+offset_bottom = 13.0
+
+[node name="ENE" parent="PlayerWindow" unique_id=918878510 instance=ExtResource("3_cm0pq")]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = 100.0
+offset_bottom = 26.0
+
+[node name="Time" type="Label" parent="PlayerWindow" unique_id=1755323908]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 4.0
+offset_right = 142.0
+offset_bottom = 23.0
+text = "Morning"
+
+[connection signal="pressed" from="BottomMenu/Move" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BottomMenu/Map" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="BottomMenu/Rest" to="." method="_on_rest_pressed"]
+[connection signal="pressed" from="BottomMenu/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="BottomMenu/Explore" to="." method="_on_explore_pressed"]
