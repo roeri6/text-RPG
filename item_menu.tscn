@@ -11,4 +11,17 @@ max_columns = 5
 same_column_width = true
 script = ExtResource("1_n2rwk")
 
+[node name="ItemList" type="ItemList" parent="." unique_id=491460626]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 38.0
+item_count = 3
+item_0/text = "Use"
+item_1/text = "Info"
+item_2/text = "Discard"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="item_activated" from="." to="." method="_on_item_activated"]
+[connection signal="gui_input" from="ItemList" to="." method="_on_item_list_gui_input"]
+[connection signal="item_activated" from="ItemList" to="." method="_on_item_list_item_activated"]

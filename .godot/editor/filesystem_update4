@@ -1,8 +1,4 @@
 res://Main.tscn
 res://Theme/MenuTheme.tres
+res://Data/Data.gd
 res://main.gd
-res://Actor/Actor.gd
-res://Room/Room.gd
-res://Item/Item.gd
-res://item_menu.gd
-res://item_menu.tscn
