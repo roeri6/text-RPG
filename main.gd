@@ -13,21 +13,44 @@ var clock = 0
 @onready var log_window = $LogWindow
 @onready var last_button = $BottomMenu/Move
 
+enum {COMMAND, PROCESS}
+var state = COMMAND
+
+signal command_set
+
 func _ready():
 	Data.initialize_data()
 	set_player_actor("MrHero")
+	Data.get_actor(player_actor).room = "Cave"
 	start_new_room("Cave")
 	make_pathfind()
 	last_button.grab_focus()
+	connect("command_set", process_commands)
+	Data.connect("log", log_window.add_log)
+
+#region game_manager
+
+func process_commands():
+	Data.validate_actions()	
+	Data.sort_action_queue()
+	Data.execute_actions(player_actor)
 
 
+
+#endregion
+
+#region actions
+
+
+	
+#endregion
 func set_player_actor(actor):
 	player_actor = actor
 	$PlayerWindow.set_player_window(Data.get_actor(actor))
 
-func change_active_room(newroom):
+func old_change_active_room(newroom):
 	if Data.has_room(newroom):
-		if spend_energy(5):
+		if Data.get_actor(player_actor).damage_energy(5):
 			log_window.add_log("Moved to " + newroom)
 			spend_time(30)
 			start_new_room(newroom)
@@ -38,6 +61,14 @@ func change_active_room(newroom):
 		print("hey bro room does not exist")
 		return
 
+func change_active_room(newroom):
+	var act = Action.new()
+	act.type = "move"
+	act.parameters.append(newroom)
+	act.actor = player_actor
+	Data.add_action(act)
+	emit_signal("command_set")
+	
 func start_new_room(room):
 	active_room = room
 	var room_data = Data.get_room(room)
@@ -83,33 +114,11 @@ func return_pathfind(target):
 		print("no_path_avaliable")
 
 
-func spend_energy(value):
-	var actor = Data.get_actor(player_actor)
-	if value < 0:
-		actor.energy = clampi(actor.energy-value,0, actor.max_energy)
-		return true
-	if actor.energy > value:
-		actor.energy -= value
-		return true
-	else:
-		if actor.energy > 0:
-			value -= actor.energy
-			actor.energy = 0
-		actor.hp -= value
-		if actor.hp > 0:
-			log_window.add_log("No more energy, you're too tired...")
-			return true
-		else:
-			log_window.add_log("You collapse...")
-			return false
 
-func spend_hp(value):
-	var actor = Data.get_actor(player_actor)
-	actor.hp = clampi(actor.hp-value,0, actor.max_hp)
-	
 func spend_time(minutes):
 	clock += minutes
-	
+
+#region window buttons
 func _on_button_pressed():
 	if travel_window == null:
 		last_button = $BottomMenu/Move
@@ -140,7 +149,7 @@ func _on_talk_pressed():
 
 func _on_explore_pressed():
 	var room = Data.get_room(active_room)
-	if !spend_energy(2):
+	if !Data.get_actor(player_actor).damage_energy(2):
 		return
 	var event = room.get_explore_event()
 	spend_time(15)
@@ -169,8 +178,8 @@ func _on_rest_pressed():
 		if (clock/60)+9 > 20 or Data.get_actor(player_actor).energy == 0:
 			log_window.add_log("ZzZz... You feel well rested!")
 			clock = 0
-			spend_energy(-999)
-			spend_hp(-999)
+			Data.get_actor(player_actor).damage_energy(-999)
+			Data.get_actor(player_actor).damage_hp(-999)
 		else:
 			log_window.add_log("You are not sleepy.")
 	else:
@@ -179,8 +188,8 @@ func _on_rest_pressed():
 		else:
 			log_window.add_log("You rest for a while")
 			spend_time(60)
-			spend_energy(-20)
-			spend_hp(-5)
+			Data.get_actor(player_actor).damage_energy(-20)
+			Data.get_actor(player_actor).damage_hp(-5)
 	update_hud()
 
 
@@ -199,6 +208,8 @@ func _on_item_pressed():
 		item_window.connect("item_discard", item_discard)
 		add_child(item_window)
 	pass # Replace with function body.
+
+#endregion
 
 func item_used(index):
 	var item = Data.get_actor(player_actor).inventory[index]

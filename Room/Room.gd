@@ -3,6 +3,7 @@ class_name Room
 
 
 var connections = []
+var actors = []
 var room_name
 var id
 var background
@@ -11,6 +12,14 @@ var is_sleeping_spot = false
 var explore_items = {}
 var explore_times_max = 5
 @onready var explore_times = explore_times_max
+
+func add_actor(actor):
+	if !actors.has(actor):
+		actors.append(actor)
+
+func remove_actor(actor):
+	if actors.has(actor):
+		actors.erase(actor)
 
 func get_explore_event():
 	var rng = RandomNumberGenerator.new()
